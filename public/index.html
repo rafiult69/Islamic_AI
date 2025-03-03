@@ -8,13 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #3a7b6d;
-            --secondary-color: #d4af37;
-            --tertiary-color: #f9f5ec;
+            --primary-color: #4e6e81;
+            --secondary-color: #f9b572;
+            --tertiary-color: #f8f6f4;
             --dark-text: #2c3e50;
             --light-text: #ffffff;
-            --accent-color: #e8b85e;
-            --border-radius: 16px;
+            --accent-color: #f2d184;
+            --border-radius: 20px;
+            --shadow-color: rgba(78, 110, 129, 0.2);
         }
         
         * {
@@ -25,13 +26,13 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--tertiary-color) 0%, #f0f7f4 100%);
+            background: linear-gradient(135deg, var(--tertiary-color) 0%, #eef5fc 100%);
             color: var(--dark-text);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233a7b6d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z' fill='%234e6e81' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
         
         .container {
@@ -81,23 +82,24 @@
         }
         
         .chat-container {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
             border-radius: var(--border-radius);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 35px var(--shadow-color);
             overflow: hidden;
             margin-bottom: 1.5rem;
             transition: all 0.3s ease;
-            border: 1px solid rgba(58, 123, 109, 0.1);
+            border: none;
         }
         
         .chat-header {
             padding: 1.2rem 1.5rem;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #3a5a70);
             color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-bottom: 4px solid var(--secondary-color);
         }
         
         .chat-title {
@@ -144,33 +146,39 @@
         .chat-bubble {
             max-width: 80%;
             padding: 1rem 1.2rem;
-            border-radius: 18px;
+            border-radius: 20px;
             margin-bottom: 1.2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             position: relative;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.5s ease-out;
             line-height: 1.5;
             font-size: 0.95rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .chat-bubble:hover {
+            transform: translateY(-2px);
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
         .user-message {
-            background: linear-gradient(135deg, var(--primary-color), #286053);
+            background: linear-gradient(135deg, var(--primary-color), #3a5a70);
             color: var(--light-text);
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            box-shadow: 0 2px 8px rgba(58, 123, 109, 0.2);
+            box-shadow: 0 3px 10px var(--shadow-color);
         }
         
         .bot-message {
-            background: #f8f9fa;
+            background: linear-gradient(to right, #f8f9fa, #f5f7fa);
             border-bottom-left-radius: 4px;
             color: var(--dark-text);
-            border-left: 3px solid var(--secondary-color);
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
         }
         
         .message-controls {
@@ -211,44 +219,44 @@
         
         .input-container {
             display: flex;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 1rem 1.5rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.03);
             align-items: center;
         }
         
         #user-input {
             flex: 1;
-            padding: 0.9rem 1.2rem;
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1rem 1.3rem;
+            border: 1px solid rgba(0, 0, 0, 0.06);
             border-radius: 30px;
             font-family: 'Poppins', sans-serif;
             font-size: 0.95rem;
             background: white;
             transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.02);
         }
         
         #user-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 2px 12px rgba(58, 123, 109, 0.15);
+            box-shadow: 0 4px 15px var(--shadow-color);
         }
         
         #send-btn {
-            background: linear-gradient(135deg, var(--primary-color), #286053);
+            background: linear-gradient(135deg, var(--primary-color), #3a5a70);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             margin-left: 0.8rem;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(58, 123, 109, 0.2);
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
         
         #send-btn:hover {
@@ -299,15 +307,28 @@
             40% { transform: scale(1); }
         }
         
+        .typing-text {
+            display: inline;
+            border-right: 2px solid var(--primary-color);
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-color) }
+        }
+        
         .arabic {
             font-family: 'Amiri', serif;
             direction: rtl;
             line-height: 1.8;
-            margin: 10px 0;
-            font-size: 1.1rem;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 10px;
-            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.2rem;
+            background: rgba(249, 181, 114, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            border-right: 3px solid var(--secondary-color);
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.02);
         }
         
         .footnote {
@@ -434,6 +455,10 @@
             </svg>
             Answers are provided based on Quran and authentic Hadith sources
         </div>
+        
+        <div style="text-align: center; opacity: 0.6; font-size: 0.8rem; margin-top: 10px; padding: 0 20px;">
+            This AI works based on information from the internet. While it aims to provide accurate answers, please verify important religious information with qualified scholars.
+        </div>
     </div>
 
     <script>
@@ -466,9 +491,38 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-bubble ${isUser ? 'user-message' : 'bot-message'}`;
             
-            // Format the message with proper HTML
-            const formattedMessage = message.replace(/\n/g, '<br>');
-            messageDiv.innerHTML = formattedMessage;
+            if (isUser) {
+                // Format the message with proper HTML for user messages
+                const formattedMessage = message.replace(/\n/g, '<br>');
+                messageDiv.innerHTML = formattedMessage;
+            } else {
+                // For bot messages, prepare for typing animation
+                messageDiv.innerHTML = '<span class="typing-text"></span>';
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Animate the text being typed
+                const typingText = messageDiv.querySelector('.typing-text');
+                const formattedMessage = message.replace(/\n/g, '<br>');
+                let i = 0;
+                const typingSpeed = 15; // milliseconds per character
+                
+                function typeWriter() {
+                    if (i < formattedMessage.length) {
+                        if (formattedMessage.substring(i, i+4) === '<br>') {
+                            typingText.innerHTML += '<br>';
+                            i += 4;
+                        } else {
+                            typingText.innerHTML += formattedMessage.charAt(i);
+                            i++;
+                        }
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                        setTimeout(typeWriter, typingSpeed);
+                    }
+                }
+                
+                typeWriter();
+                return;
             
             // If it's a bot message, add TTS button
             if (!isUser) {
@@ -521,12 +575,15 @@
                     const speech = new SpeechSynthesisUtterance(textToSpeak);
                     speech.lang = 'en-US';
                     
-                    // Try to find a good voice
+                    // Try to find a good male voice for Islamic scholar
                     availableVoices = speechSynthesis.getVoices();
                     const preferredVoices = [
+                        'Microsoft Khalid - Arabic (Saudi Arabia)', // Arabic male voice if available
+                        'Microsoft Ahmed - Arabic (Egypt)',
                         'Google UK English Male',
                         'Microsoft David - English (United States)',
                         'Microsoft Mark - English (United States)',
+                        'Microsoft Guy - English (United States)',
                         'Daniel'
                     ];
                     
