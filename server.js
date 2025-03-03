@@ -32,7 +32,7 @@ app.post('/chat', async (req, res) => {
     }, {
       headers: {
         'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://your-domain.com',
+        'HTTP-Referer': 'https://islamic-scholar-ai.replit.app',
         'X-Title': 'Islamic Scholar AI',
         'Content-Type': 'application/json'
       }

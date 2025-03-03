@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamic Scholar AI - Ask Questions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #3a7b6d;
-            --secondary-color: #d4af37;
-            --tertiary-color: #f9f5ec;
-            --dark-text: #2c3e50;
+            --primary-color: #0d5d36;  /* Deep green */
+            --secondary-color: #c5a455; /* Gold */
+            --background-color: #f8f5ee; /* Cream */
+            --dark-text: #333333;
             --light-text: #ffffff;
-            --accent-color: #e8b85e;
+            --accent-color: #d4af37;  /* Another gold tone */
             --border-radius: 16px;
+            --transition-speed: 300ms;
         }
         
         * {
@@ -24,14 +25,14 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--tertiary-color) 0%, #f0f7f4 100%);
+            font-family: 'Open Sans', sans-serif;
+            background: var(--background-color);
             color: var(--dark-text);
-            line-height: 1.6;
+            line-height: 1.5;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233a7b6d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230d5d36' fill-opacity='0.03'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         
         .container {
@@ -49,46 +50,51 @@
             position: relative;
         }
         
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 3.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
         .title {
             color: var(--primary-color);
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary-color), #286053);
+            background: linear-gradient(135deg, var(--primary-color), #083f25);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
         }
         
         .subtitle {
-            color: #777;
+            color: #555;
             font-size: 1.1rem;
             font-weight: 300;
             max-width: 500px;
             margin: 0 auto;
         }
         
-        .logo-decoration {
-            font-family: 'Amiri', serif;
-            font-size: 3.5rem;
-            color: var(--accent-color);
-            opacity: 0.3;
-            position: absolute;
-            top: -1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: -1;
+        .geometric-border {
+            position: relative;
+            height: 10px;
+            width: 80%;
+            margin: 15px auto;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='10' viewBox='0 0 60 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0 L5 10 L15 10 Z M25 0 L20 10 L30 10 Z M40 0 L35 10 L45 10 Z M55 0 L50 10 L60 10 Z' fill='%23c5a455' fill-opacity='0.3'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
         }
         
         .chat-container {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(58, 123, 109, 0.1);
+            transition: all var(--transition-speed) ease-in-out;
+            border: 1px solid rgba(13, 93, 54, 0.1);
         }
         
         .chat-header {
@@ -120,7 +126,7 @@
             scroll-behavior: smooth;
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
-                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233a7b6d' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%230d5d36' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
         
         .messages::-webkit-scrollbar {
@@ -133,12 +139,12 @@
         }
         
         .messages::-webkit-scrollbar-thumb {
-            background: rgba(58, 123, 109, 0.3);
+            background: rgba(13, 93, 54, 0.3);
             border-radius: 10px;
         }
         
         .messages::-webkit-scrollbar-thumb:hover {
-            background: rgba(58, 123, 109, 0.5);
+            background: rgba(13, 93, 54, 0.5);
         }
         
         .chat-bubble {
@@ -148,7 +154,7 @@
             margin-bottom: 1.2rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
             position: relative;
-            animation: fadeIn 0.4s ease-out;
+            animation: fadeIn 0.4s ease-in-out;
             line-height: 1.5;
             font-size: 0.95rem;
         }
@@ -159,11 +165,11 @@
         }
         
         .user-message {
-            background: linear-gradient(135deg, var(--primary-color), #286053);
+            background: linear-gradient(135deg, var(--primary-color), #083f25);
             color: var(--light-text);
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            box-shadow: 0 2px 8px rgba(58, 123, 109, 0.2);
+            box-shadow: 0 2px 8px rgba(13, 93, 54, 0.2);
         }
         
         .bot-message {
@@ -171,6 +177,26 @@
             border-bottom-left-radius: 4px;
             color: var(--dark-text);
             border-left: 3px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        .bot-avatar {
+            position: absolute;
+            left: -36px;
+            bottom: 0;
+            width: 28px;
+            height: 28px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bot-avatar svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
         }
         
         .message-controls {
@@ -195,12 +221,12 @@
         
         .tts-button:hover {
             color: var(--primary-color);
-            background: rgba(58, 123, 109, 0.1);
+            background: rgba(13, 93, 54, 0.1);
         }
         
         .tts-button.playing {
             color: var(--primary-color);
-            background: rgba(58, 123, 109, 0.1);
+            background: rgba(13, 93, 54, 0.1);
         }
         
         .tts-button svg {
@@ -222,21 +248,22 @@
             padding: 0.9rem 1.2rem;
             border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 30px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.95rem;
             background: white;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            min-height: 48px;
         }
         
         #user-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 2px 12px rgba(58, 123, 109, 0.15);
+            box-shadow: 0 2px 12px rgba(13, 93, 54, 0.15);
         }
         
         #send-btn {
-            background: linear-gradient(135deg, var(--primary-color), #286053);
+            background: linear-gradient(135deg, var(--primary-color), #083f25);
             color: white;
             border: none;
             border-radius: 50%;
@@ -244,16 +271,16 @@
             height: 48px;
             margin-left: 0.8rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 10px rgba(58, 123, 109, 0.2);
+            box-shadow: 0 2px 10px rgba(13, 93, 54, 0.2);
         }
         
         #send-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(58, 123, 109, 0.3);
+            box-shadow: 0 4px 12px rgba(13, 93, 54, 0.3);
         }
         
         #send-btn:active {
@@ -266,7 +293,7 @@
         }
         
         .loading {
-            display: flex;
+            display: none;
             justify-content: flex-start;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -305,9 +332,43 @@
             line-height: 1.8;
             margin: 10px 0;
             font-size: 1.1rem;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 10px;
+            background: rgba(197, 164, 85, 0.1);
+            padding: 12px;
             border-radius: 8px;
+            border-right: 3px solid var(--secondary-color);
+        }
+        
+        .verse-reference {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: right;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .quran-box {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            background-color: rgba(197, 164, 85, 0.05);
+        }
+        
+        .section-header {
+            color: var(--primary-color);
+            margin: 16px 0 8px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--secondary-color);
+            display: inline-block;
+            padding-bottom: 3px;
+        }
+        
+        .scholar-note {
+            background-color: rgba(13, 93, 54, 0.05);
+            border-left: 3px solid var(--primary-color);
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 4px;
         }
         
         .footnote {
@@ -326,6 +387,62 @@
             margin-right: 6px;
         }
         
+        .quick-action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .quick-action {
+            background: rgba(13, 93, 54, 0.05);
+            border: 1px solid rgba(13, 93, 54, 0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            color: var(--primary-color);
+        }
+        
+        .quick-action:hover {
+            background: rgba(13, 93, 54, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .prayer-times {
+            background: linear-gradient(135deg, rgba(13, 93, 54, 0.9), rgba(8, 63, 37, 0.9));
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .prayer-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            min-width: 70px;
+        }
+        
+        .prayer-name {
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+        }
+        
+        .prayer-hour {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
         /* Responsive styles */
         @media (max-width: 768px) {
             .container {
@@ -338,7 +455,7 @@
                 font-size: 2.2rem;
             }
             
-            .logo-decoration {
+            .bismillah {
                 font-size: 2.8rem;
             }
             
@@ -349,6 +466,10 @@
             .messages {
                 height: 400px;
                 padding: 1.2rem;
+            }
+            
+            .prayer-times {
+                justify-content: center;
             }
         }
         
@@ -361,7 +482,7 @@
                 font-size: 0.9rem;
             }
             
-            .logo-decoration {
+            .bismillah {
                 font-size: 2.2rem;
             }
             
@@ -388,27 +509,106 @@
                 padding: 0.8rem 1rem;
             }
         }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #1a1e22;
+                --dark-text: #e4e6eb;
+            }
+            
+            body {
+                background-color: var(--background-color);
+                color: var(--dark-text);
+            }
+            
+            .chat-container {
+                background: rgba(30, 35, 40, 0.95);
+            }
+            
+            .bot-message {
+                background: #2a2f36;
+                color: #e4e6eb;
+            }
+            
+            #user-input {
+                background: #2a2f36;
+                color: #e4e6eb;
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+            
+            .input-container {
+                background-color: rgba(30, 35, 40, 0.8);
+            }
+            
+            .subtitle {
+                color: #b0b3b8;
+            }
+            
+            .arabic {
+                background: rgba(197, 164, 85, 0.15);
+            }
+            
+            .quran-box {
+                background-color: rgba(197, 164, 85, 0.08);
+            }
+            
+            .scholar-note {
+                background-color: rgba(13, 93, 54, 0.15);
+            }
+            
+            .footnote {
+                color: rgba(255, 255, 255, 0.5);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo-decoration">﷽</div>
+            <div class="bismillah">﷽</div>
             <h1 class="title">Islamic Scholar AI</h1>
             <p class="subtitle">Ask your questions about Islam and receive authentic answers based on Quran and Hadith</p>
+            <div class="geometric-border"></div>
         </header>
+
+        <div class="prayer-times">
+            <div class="prayer-time">
+                <span class="prayer-name">Fajr</span>
+                <span class="prayer-hour" id="fajr-time">--:--</span>
+            </div>
+            <div class="prayer-time">
+                <span class="prayer-name">Dhuhr</span>
+                <span class="prayer-hour" id="dhuhr-time">--:--</span>
+            </div>
+            <div class="prayer-time">
+                <span class="prayer-name">Asr</span>
+                <span class="prayer-hour" id="asr-time">--:--</span>
+            </div>
+            <div class="prayer-time">
+                <span class="prayer-name">Maghrib</span>
+                <span class="prayer-hour" id="maghrib-time">--:--</span>
+            </div>
+            <div class="prayer-time">
+                <span class="prayer-name">Isha</span>
+                <span class="prayer-hour" id="isha-time">--:--</span>
+            </div>
+        </div>
 
         <div class="chat-container">
             <div class="chat-header">
                 <div class="chat-title">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0-18 0"></path>
+                        <path d="M12 8v8"></path>
+                        <path d="M8.5 14a2 2 0 1 0 0-4a2 2 0 0 0 0 4"></path>
+                        <path d="M15.5 14a2 2 0 1 0 0-4a2 2 0 0 0 0 4"></path>
                     </svg>
                     Islamic Knowledge Assistant
                 </div>
             </div>
             <div id="chat-container" class="messages"></div>
-            <div id="loading" class="loading hidden">
+            <div id="loading" class="loading">
                 <div class="loading-dots">
                     <span></span>
                     <span></span>
@@ -435,7 +635,7 @@
             Answers are provided based on Quran and authentic Hadith sources
         </div>
         <div class="footnote" style="opacity: 0.6; font-size: 0.8rem; margin-top: 0.5rem;">
-            This AI works with information from the internet, so all information may not be entirely accurate
+            والله أعلم (Allah knows best)
         </div>
     </div>
 
@@ -447,7 +647,20 @@
         let currentlySpeaking = null;
         let availableVoices = [];
 
-        // Load available voices
+        // Prayer times (simple static implementation for now)
+        function updatePrayerTimes() {
+            // This would typically be replaced with an API call to get accurate prayer times
+            // based on user's location, but for demo purposes, we're using static times
+            document.getElementById('fajr-time').textContent = '05:12';
+            document.getElementById('dhuhr-time').textContent = '12:30';
+            document.getElementById('asr-time').textContent = '15:45';
+            document.getElementById('maghrib-time').textContent = '18:10';
+            document.getElementById('isha-time').textContent = '19:40';
+        }
+        
+        updatePrayerTimes();
+
+        // Load available voices for TTS
         function loadVoices() {
             availableVoices = speechSynthesis.getVoices();
         }
@@ -458,23 +671,33 @@
 
         loadVoices();
 
-        // Welcome message
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                addMessage("Assalamu Alaikum! I'm your Islamic Scholar Assistant. Feel free to ask me any questions about Islam, and I'll provide answers based on the Quran and authentic Hadith sources.");
-            }, 500);
-        });
+        // Helper function to create bot avatar element
+        function createBotAvatar() {
+            const avatar = document.createElement('div');
+            avatar.className = 'bot-avatar';
+            avatar.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M337.782 434.704l-73.755 73.754 73.755 73.755c0 0 169.84-42.6 169.84-286.2S388.443 0 256.016 0 4.683 170.008 4.683 296.012s169.84 286.19 169.84 286.19l73.754-73.754-73.784-73.744H337.79z"/>
+                </svg>
+            `;
+            return avatar;
+        }
 
+        // Add message to chat
         function addMessage(message, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-bubble ${isUser ? 'user-message' : 'bot-message'}`;
             
             // Format the message with proper HTML
-            const formattedMessage = message.replace(/\n/g, '<br>');
+            const formattedMessage = formatBotMessage(message);
             messageDiv.innerHTML = formattedMessage;
             
-            // If it's a bot message, add TTS button
+            // If it's a bot message, add bot avatar and TTS button
             if (!isUser) {
+                const botAvatar = createBotAvatar();
+                messageDiv.appendChild(botAvatar);
+                
+                // Add controls
                 const controlsDiv = document.createElement('div');
                 controlsDiv.className = 'message-controls';
                 
@@ -566,12 +789,79 @@
                 
                 controlsDiv.appendChild(ttsButton);
                 messageDiv.appendChild(controlsDiv);
+                
+                // Add quick action buttons for related questions
+                addQuickActionButtons(messageDiv);
             }
             
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
+        
+        // Format bot message with special styling
+        function formatBotMessage(message) {
+            // Replace Arabic verses with proper styling
+            let formatted = message;
+            
+            // Detect Arabic text and add proper styling
+            formatted = formatted.replace(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+/g, match => {
+                return `<div class="arabic">${match}</div>`;
+            });
+            
+            // Add section headers styling
+            formatted = formatted.replace(/^(#+\s+.+)$/gm, match => {
+                const headerText = match.replace(/^#+\s+/, '');
+                return `<div class="section-header">${headerText}</div>`;
+            });
+            
+            // Replace Quran references with proper formatting
+            const quranVerseRegex = /\(Quran\s+(\d+):(\d+)\)/g;
+            formatted = formatted.replace(quranVerseRegex, match => {
+                return `<div class="verse-reference">${match}</div>`;
+            });
+            
+            // Format bullet points
+            formatted = formatted.replace(/^(\s*)-\s+(.+)$/gm, '<span>⦿ $2</span>');
+            
+            // Replace newlines with <br>
+            formatted = formatted.replace(/\n/g, '<br>');
+            
+            return formatted;
+        }
+        
+        // Add quick action buttons for related questions
+        function addQuickActionButtons(messageDiv) {
+            // Sample related questions - in a real app, these would be dynamically generated
+            const relatedQuestions = [
+                "How to pray Salah?",
+                "What is Tawheed?",
+                "Fasting in Ramadan",
+                "Hajj requirements"
+            ];
+            
+            // Only add buttons to some messages (for demonstration)
+            if (Math.random() > 0.5) {
+                const quickActionDiv = document.createElement('div');
+                quickActionDiv.className = 'quick-action-buttons';
+                
+                relatedQuestions.forEach(question => {
+                    const button = document.createElement('button');
+                    button.className = 'quick-action';
+                    button.textContent = question;
+                    
+                    button.addEventListener('click', () => {
+                        userInput.value = question;
+                        handleSend();
+                    });
+                    
+                    quickActionDiv.appendChild(button);
+                });
+                
+                messageDiv.appendChild(quickActionDiv);
+            }
+        }
 
+        // Handle sending a message
         async function handleSend() {
             const question = userInput.value.trim();
             if (!question) return;
@@ -604,6 +894,13 @@
             }
         }
 
+        // Welcome message
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                addMessage("بسم الله الرحمن الرحيم\n\nAssalamu Alaikum! I'm your Islamic Scholar Assistant. Feel free to ask me any questions about Islam, and I'll provide answers based on the Quran and authentic Hadith sources.\n\nHow may I assist you today?");
+            }, 500);
+        });
+
         // Event listeners
         sendBtn.addEventListener('click', handleSend);
         userInput.addEventListener('keypress', (e) => {
@@ -611,6 +908,22 @@
                 handleSend();
             }
         });
+        
+        // Debounce function for input typing feedback
+        function debounce(func, delay) {
+            let timeout;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), delay);
+            };
+        }
+        
+        // Add typing indicator when user is typing
+        userInput.addEventListener('input', debounce(() => {
+            // Here you could implement typing indicator if needed
+        }, 200));
     </script>
 </body>
 </html>
