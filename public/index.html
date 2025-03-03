@@ -5,86 +5,152 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamic Scholar AI - Ask Questions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #285e46;
+            --primary-color: #3a7b6d;
             --secondary-color: #d4af37;
-            --light-bg: #f8f5f0;
-            --dark-text: #333333;
+            --tertiary-color: #f9f5ec;
+            --dark-text: #2c3e50;
             --light-text: #ffffff;
+            --accent-color: #e8b85e;
+            --border-radius: 16px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Noto Serif', 'Amiri', serif;
-            background-color: var(--light-bg);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--tertiary-color) 0%, #f0f7f4 100%);
             color: var(--dark-text);
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
             min-height: 100vh;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
-                url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjUsMjUgTDc1LDI1IEw3NSw3NSBMMjUsNzUgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvc3ZnPg==');
+            display: flex;
+            flex-direction: column;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233a7b6d' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
+            max-width: 1000px;
+            width: 90%;
+            margin: 2rem auto;
+            padding: 0;
+            flex: 1;
         }
         
         header {
             text-align: center;
-            padding: 2rem 0;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            position: relative;
         }
         
         .title {
             color: var(--primary-color);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .title::after {
-            content: "";
-            position: absolute;
-            width: 60%;
-            height: 3px;
-            background-color: var(--secondary-color);
-            bottom: -10px;
-            left: 20%;
+            background: linear-gradient(135deg, var(--primary-color), #286053);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
         }
         
         .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            font-weight: normal;
+            color: #777;
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .logo-decoration {
+            font-family: 'Amiri', serif;
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            opacity: 0.3;
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
         }
         
         .chat-container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(58, 123, 109, 0.1);
+        }
+        
+        .chat-header {
+            padding: 1.2rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-title svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
         }
         
         .messages {
             padding: 1.5rem;
             height: 450px;
             overflow-y: auto;
+            scroll-behavior: smooth;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233a7b6d' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .messages::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+        
+        .messages::-webkit-scrollbar-thumb {
+            background: rgba(58, 123, 109, 0.3);
+            border-radius: 10px;
+        }
+        
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(58, 123, 109, 0.5);
         }
         
         .chat-bubble {
-            max-width: 85%;
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            max-width: 80%;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
             position: relative;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.4s ease-out;
+            line-height: 1.5;
+            font-size: 0.95rem;
         }
         
         @keyframes fadeIn {
@@ -93,17 +159,18 @@
         }
         
         .user-message {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #286053);
             color: var(--light-text);
             margin-left: auto;
-            border-bottom-right-radius: 0;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 8px rgba(58, 123, 109, 0.2);
         }
         
         .bot-message {
-            background: var(--light-bg);
-            border-bottom-left-radius: 0;
+            background: #f8f9fa;
+            border-bottom-left-radius: 4px;
             color: var(--dark-text);
-            border-left: 4px solid var(--secondary-color);
+            border-left: 3px solid var(--secondary-color);
         }
         
         .message-controls {
@@ -116,73 +183,93 @@
         .tts-button {
             background: none;
             border: none;
-            color: #888;
+            color: rgba(0, 0, 0, 0.4);
             cursor: pointer;
-            padding: 5px;
+            padding: 5px 8px;
             display: flex;
             align-items: center;
             font-size: 0.8rem;
+            border-radius: 5px;
+            transition: all 0.2s;
         }
         
         .tts-button:hover {
             color: var(--primary-color);
+            background: rgba(58, 123, 109, 0.1);
+        }
+        
+        .tts-button.playing {
+            color: var(--primary-color);
+            background: rgba(58, 123, 109, 0.1);
         }
         
         .tts-button svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             margin-right: 5px;
         }
         
         .input-container {
             display: flex;
-            background-color: white;
-            padding: 1rem;
-            border-top: 1px solid #eee;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            align-items: center;
         }
         
         #user-input {
             flex: 1;
-            padding: 0.8rem 1rem;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            background: white;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
         
         #user-input:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 2px 12px rgba(58, 123, 109, 0.15);
         }
         
         #send-btn {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #286053);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 0 1.5rem;
-            margin-left: 0.5rem;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            margin-left: 0.8rem;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 10px rgba(58, 123, 109, 0.2);
         }
         
         #send-btn:hover {
-            background-color: #1e4935;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(58, 123, 109, 0.3);
+        }
+        
+        #send-btn:active {
+            transform: translateY(0);
         }
         
         #send-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
         }
         
         .loading {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 1rem;
+            margin-bottom: 1rem;
         }
         
         .loading-dots {
@@ -193,8 +280,9 @@
             width: 8px;
             height: 8px;
             margin: 0 3px;
-            background-color: #ddd;
+            background-color: var(--primary-color);
             border-radius: 50%;
+            opacity: 0.5;
             animation: bounce 1.4s infinite ease-in-out both;
         }
         
@@ -217,24 +305,108 @@
             line-height: 1.8;
             margin: 10px 0;
             font-size: 1.1rem;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 10px;
+            border-radius: 8px;
         }
         
         .footnote {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             text-align: center;
-            font-size: 0.8rem;
-            color: #888;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footnote svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin: 1rem auto;
+                padding: 0;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .logo-decoration {
+                font-size: 2.8rem;
+            }
+            
+            .chat-bubble {
+                max-width: 85%;
+            }
+            
+            .messages {
+                height: 400px;
+                padding: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .logo-decoration {
+                font-size: 2.2rem;
+            }
+            
+            .chat-bubble {
+                max-width: 90%;
+                padding: 0.9rem 1rem;
+            }
+            
+            .messages {
+                height: 350px;
+                padding: 1rem;
+            }
+            
+            #user-input {
+                padding: 0.7rem 1rem;
+            }
+            
+            #send-btn {
+                width: 42px;
+                height: 42px;
+            }
+            
+            .input-container {
+                padding: 0.8rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <div class="logo-decoration">﷽</div>
             <h1 class="title">Islamic Scholar AI</h1>
-            <p class="subtitle">Ask your questions about Islam and get authentic answers</p>
+            <p class="subtitle">Ask your questions about Islam and receive authentic answers based on Quran and Hadith</p>
         </header>
 
         <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Islamic Knowledge Assistant
+                </div>
+            </div>
             <div id="chat-container" class="messages"></div>
             <div id="loading" class="loading hidden">
                 <div class="loading-dots">
@@ -255,6 +427,11 @@
         </div>
         
         <div class="footnote">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+            </svg>
             Answers are provided based on Quran and authentic Hadith sources
         </div>
     </div>
@@ -265,11 +442,23 @@
         const sendBtn = document.getElementById('send-btn');
         const loading = document.getElementById('loading');
         let currentlySpeaking = null;
+        let availableVoices = [];
+
+        // Load available voices
+        function loadVoices() {
+            availableVoices = speechSynthesis.getVoices();
+        }
+
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        loadVoices();
 
         // Welcome message
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                addMessage("Assalamu Alaikum! I'm your Islamic Scholar Assistant. Feel free to ask me any questions about Islam, and I'll provide answers based on the Quran and authentic Hadith.");
+                addMessage("Assalamu Alaikum! I'm your Islamic Scholar Assistant. Feel free to ask me any questions about Islam, and I'll provide answers based on the Quran and authentic Hadith sources.");
             }, 500);
         });
 
@@ -301,7 +490,30 @@
                     // Stop any currently playing speech
                     if (currentlySpeaking) {
                         speechSynthesis.cancel();
+                        document.querySelectorAll('.tts-button').forEach(btn => {
+                            btn.classList.remove('playing');
+                            btn.innerHTML = `
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                                </svg>
+                                Listen
+                            `;
+                        });
+                        currentlySpeaking = null;
+                        return;
                     }
+                    
+                    // Update button state
+                    ttsButton.classList.add('playing');
+                    ttsButton.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="6" y="4" width="4" height="16"></rect>
+                            <rect x="14" y="4" width="4" height="16"></rect>
+                        </svg>
+                        Stop
+                    `;
                     
                     // Clean the text for speech (remove HTML tags)
                     const textToSpeak = message.replace(/<[^>]*>/g, '');
@@ -310,7 +522,7 @@
                     speech.lang = 'en-US';
                     
                     // Try to find a good voice
-                    const voices = speechSynthesis.getVoices();
+                    availableVoices = speechSynthesis.getVoices();
                     const preferredVoices = [
                         'Google UK English Male',
                         'Microsoft David - English (United States)',
@@ -319,7 +531,7 @@
                     ];
                     
                     for (const preferredVoice of preferredVoices) {
-                        const voice = voices.find(v => v.name === preferredVoice);
+                        const voice = availableVoices.find(v => v.name === preferredVoice);
                         if (voice) {
                             speech.voice = voice;
                             break;
@@ -334,6 +546,15 @@
                     
                     speech.onend = () => {
                         currentlySpeaking = null;
+                        ttsButton.classList.remove('playing');
+                        ttsButton.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                            </svg>
+                            Listen
+                        `;
                     };
                 });
                 
@@ -352,7 +573,9 @@
             // Add user message
             addMessage(question, true);
             userInput.value = '';
-            loading.classList.remove('hidden');
+            
+            // Show loading animation
+            loading.style.display = 'flex';
 
             try {
                 const response = await fetch('/chat', {
@@ -363,19 +586,19 @@
 
                 if (!response.ok) throw new Error('API Error');
                 const data = await response.json();
-                loading.classList.add('hidden');
+                
+                // Hide loading animation
+                loading.style.display = 'none';
+                
+                // Add bot response
                 addMessage(data.reply);
             } catch (error) {
-                loading.classList.add('hidden');
+                loading.style.display = 'none';
                 addMessage('Could not get response. Please try again later.');
             }
         }
 
-        // Fill voices when page loads
-        window.speechSynthesis.onvoiceschanged = function() {
-            window.speechSynthesis.getVoices();
-        };
-
+        // Event listeners
         sendBtn.addEventListener('click', handleSend);
         userInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
