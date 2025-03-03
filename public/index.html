@@ -5,66 +5,257 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Islamic Scholar AI - Ask Questions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --islamic-green: #0d5d36;
-            --gold: #c5a455;
+            --primary-color: #285e46;
+            --secondary-color: #d4af37;
+            --light-bg: #f8f5f0;
+            --dark-text: #333333;
+            --light-text: #ffffff;
         }
+        
         body {
-            font-family: 'Amiri', serif;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI3MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRlMGVhIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+            font-family: 'Noto Serif', 'Amiri', serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjUsMjUgTDc1LDI1IEw3NSw3NSBMMjUsNzUgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvc3ZnPg==');
         }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title::after {
+            content: "";
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 20%;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+        
+        .chat-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        
+        .messages {
+            padding: 1.5rem;
+            height: 450px;
+            overflow-y: auto;
+        }
+        
         .chat-bubble {
             max-width: 85%;
             padding: 1rem;
-            border-radius: 1rem;
-            margin: 0.5rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
         }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .user-message {
-            background: var(--islamic-green);
-            color: white;
+            background: var(--primary-color);
+            color: var(--light-text);
             margin-left: auto;
+            border-bottom-right-radius: 0;
         }
+        
         .bot-message {
-            background: #f8f5ee;
-            border: 1px solid var(--gold);
+            background: var(--light-bg);
+            border-bottom-left-radius: 0;
+            color: var(--dark-text);
+            border-left: 4px solid var(--secondary-color);
         }
+        
+        .message-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+            justify-content: flex-end;
+        }
+        
+        .tts-button {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        
+        .tts-button:hover {
+            color: var(--primary-color);
+        }
+        
+        .tts-button svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 5px;
+        }
+        
+        .input-container {
+            display: flex;
+            background-color: white;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        #user-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        #user-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        #send-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1.5rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #send-btn:hover {
+            background-color: #1e4935;
+        }
+        
+        #send-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .loading-dots {
+            display: flex;
+        }
+        
         .loading-dots span {
-            animation: blink 1.4s infinite;
+            width: 8px;
+            height: 8px;
+            margin: 0 3px;
+            background-color: #ddd;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
         }
-        @keyframes blink {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
+        
+        .loading-dots span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+        
+        .loading-dots span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .arabic {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+            line-height: 1.8;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        .footnote {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
         }
     </style>
 </head>
-<body class="min-h-screen p-4">
-    <div class="max-w-3xl mx-auto">
-        <header class="text-center mb-8">
-            <h1 class="text-4xl font-bold mb-2" style="color: var(--islamic-green);">Islamic Scholar AI</h1>
-            <p class="text-lg text-gray-600">Ask your questions about Islam and get authentic answers</p>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">Islamic Scholar AI</h1>
+            <p class="subtitle">Ask your questions about Islam and get authentic answers</p>
         </header>
 
-        <div class="bg-white rounded-lg shadow-lg p-4 mb-4 min-h-96 max-h-[600px] overflow-y-auto">
-            <div id="chat-container" class="space-y-4"></div>
-            <div id="loading" class="hidden text-center text-gray-500 py-4">
-                <div class="loading-dots space-x-1">
-                    <span>.</span><span>.</span><span>.</span>
+        <div class="chat-container">
+            <div id="chat-container" class="messages"></div>
+            <div id="loading" class="loading hidden">
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Ask your Islamic question...">
+                <button id="send-btn">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
         </div>
-
-        <div class="flex gap-2">
-            <input type="text" id="user-input" 
-                   class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                   placeholder="Ask your Islamic question...">
-            <button id="send-btn" 
-                    class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                Send
-            </button>
+        
+        <div class="footnote">
+            Answers are provided based on Quran and authentic Hadith sources
         </div>
     </div>
 
@@ -73,11 +264,83 @@
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
         const loading = document.getElementById('loading');
+        let currentlySpeaking = null;
+
+        // Welcome message
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                addMessage("Assalamu Alaikum! I'm your Islamic Scholar Assistant. Feel free to ask me any questions about Islam, and I'll provide answers based on the Quran and authentic Hadith.");
+            }, 500);
+        });
 
         function addMessage(message, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-bubble ${isUser ? 'user-message' : 'bot-message'}`;
-            messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+            
+            // Format the message with proper HTML
+            const formattedMessage = message.replace(/\n/g, '<br>');
+            messageDiv.innerHTML = formattedMessage;
+            
+            // If it's a bot message, add TTS button
+            if (!isUser) {
+                const controlsDiv = document.createElement('div');
+                controlsDiv.className = 'message-controls';
+                
+                const ttsButton = document.createElement('button');
+                ttsButton.className = 'tts-button';
+                ttsButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    </svg>
+                    Listen
+                `;
+                
+                ttsButton.addEventListener('click', () => {
+                    // Stop any currently playing speech
+                    if (currentlySpeaking) {
+                        speechSynthesis.cancel();
+                    }
+                    
+                    // Clean the text for speech (remove HTML tags)
+                    const textToSpeak = message.replace(/<[^>]*>/g, '');
+                    
+                    const speech = new SpeechSynthesisUtterance(textToSpeak);
+                    speech.lang = 'en-US';
+                    
+                    // Try to find a good voice
+                    const voices = speechSynthesis.getVoices();
+                    const preferredVoices = [
+                        'Google UK English Male',
+                        'Microsoft David - English (United States)',
+                        'Microsoft Mark - English (United States)',
+                        'Daniel'
+                    ];
+                    
+                    for (const preferredVoice of preferredVoices) {
+                        const voice = voices.find(v => v.name === preferredVoice);
+                        if (voice) {
+                            speech.voice = voice;
+                            break;
+                        }
+                    }
+                    
+                    speech.rate = 1;
+                    speech.pitch = 1;
+                    
+                    speechSynthesis.speak(speech);
+                    currentlySpeaking = speech;
+                    
+                    speech.onend = () => {
+                        currentlySpeaking = null;
+                    };
+                });
+                
+                controlsDiv.appendChild(ttsButton);
+                messageDiv.appendChild(controlsDiv);
+            }
+            
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
@@ -100,16 +363,25 @@
 
                 if (!response.ok) throw new Error('API Error');
                 const data = await response.json();
+                loading.classList.add('hidden');
                 addMessage(data.reply);
             } catch (error) {
-                addMessage('Could not get response. Please try again later.');
-            } finally {
                 loading.classList.add('hidden');
+                addMessage('Could not get response. Please try again later.');
             }
         }
 
+        // Fill voices when page loads
+        window.speechSynthesis.onvoiceschanged = function() {
+            window.speechSynthesis.getVoices();
+        };
+
         sendBtn.addEventListener('click', handleSend);
-        userInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleSend());
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
     </script>
 </body>
 </html>
