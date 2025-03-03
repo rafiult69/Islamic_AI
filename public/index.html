@@ -352,6 +352,32 @@
             }
         }
         
+        .disclaimer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(0, 0, 0, 0.4);
+            margin-top: 0.8rem;
+            padding: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .typing-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+            font-weight: 400;
+            color: var(--primary-color);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
         @media (max-width: 480px) {
             .title {
                 font-size: 1.8rem;
@@ -386,6 +412,11 @@
             
             .input-container {
                 padding: 0.8rem 1rem;
+            }
+            
+            .disclaimer {
+                font-size: 0.7rem;
+                padding: 0.4rem;
             }
         }
     </style>
@@ -434,6 +465,10 @@
             </svg>
             Answers are provided based on Quran and authentic Hadith sources
         </div>
+        
+        <div class="disclaimer">
+            This AI draws information from internet sources. All information provided may not be completely accurate and should be verified with proper scholarly sources.
+        </div>
     </div>
 
     <script>
@@ -466,27 +501,84 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-bubble ${isUser ? 'user-message' : 'bot-message'}`;
             
-            // Format the message with proper HTML
-            const formattedMessage = message.replace(/\n/g, '<br>');
-            messageDiv.innerHTML = formattedMessage;
-            
-            // If it's a bot message, add TTS button
-            if (!isUser) {
-                const controlsDiv = document.createElement('div');
-                controlsDiv.className = 'message-controls';
+            if (isUser) {
+                // For user messages, add content immediately
+                const formattedMessage = message.replace(/\n/g, '<br>');
+                messageDiv.innerHTML = formattedMessage;
+            } else {
+                // For bot messages, create an empty container first
+                messageDiv.innerHTML = '<div class="typing-text"></div>';
+                const typingTextDiv = messageDiv.querySelector('.typing-text');
                 
-                const ttsButton = document.createElement('button');
-                ttsButton.className = 'tts-button';
-                ttsButton.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
-                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                    </svg>
-                    Listen
-                `;
+                // Add the message to the DOM right away so we can see the bubble
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                
+                // Format the message with proper HTML
+                const formattedMessage = message.replace(/\n/g, '<br>');
+                
+                // Type out the message character by character
+                let index = 0;
+                const typingSpeed = 10; // milliseconds per character
+                
+                function typeWriter() {
+                    if (index < formattedMessage.length) {
+                        // Special handling for HTML tags
+                        if (formattedMessage[index] === '<') {
+                            // Find the end of the tag
+                            const tagEndIndex = formattedMessage.indexOf('>', index);
+                            if (tagEndIndex !== -1) {
+                                // Add the entire tag at once
+                                typingTextDiv.innerHTML += formattedMessage.substring(index, tagEndIndex + 1);
+                                index = tagEndIndex + 1;
+                            } else {
+                                typingTextDiv.innerHTML += formattedMessage[index++];
+                            }
+                        } else {
+                            typingTextDiv.innerHTML += formattedMessage[index++];
+                        }
+                        
+                        // Continue typing with a slight pause between characters
+                        setTimeout(typeWriter, typingSpeed);
+                        
+                        // Auto scroll as we type
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    } else {
+                        // After typing is complete, add the controls
+                        addControlsToMessage(messageDiv);
+                    }
+                }
+                
+                // Start the typing animation
+                setTimeout(typeWriter, 200);
+                
+                // Return early as we've already added the message to DOM
+                return;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function addControlsToMessage(messageDiv) {
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'message-controls';
+            
+            const ttsButton = document.createElement('button');
+            ttsButton.className = 'tts-button';
+            ttsButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+                Listen
+            `;
                 
                 ttsButton.addEventListener('click', () => {
+                    // Extract the text from the message
+                    const messageText = messageDiv.querySelector('.typing-text').textContent;
+                    
                     // Stop any currently playing speech
                     if (currentlySpeaking) {
                         speechSynthesis.cancel();
@@ -516,7 +608,7 @@
                     `;
                     
                     // Clean the text for speech (remove HTML tags)
-                    const textToSpeak = message.replace(/<[^>]*>/g, '');
+                    const textToSpeak = messageText.replace(/<[^>]*>/g, '');
                     
                     const speech = new SpeechSynthesisUtterance(textToSpeak);
                     speech.lang = 'en-US';
@@ -561,9 +653,6 @@
                 controlsDiv.appendChild(ttsButton);
                 messageDiv.appendChild(controlsDiv);
             }
-            
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
         async function handleSend() {
