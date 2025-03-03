@@ -45,10 +45,8 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-// For local development
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port} (http://0.0.0.0:${port})`));
-}
+// Listen on all interfaces for both development and production
+app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port} (http://0.0.0.0:${port})`));
 
-// Export the Express API for Vercel
+// Export the Express API (for serverless environments like Vercel)
 module.exports = app;
