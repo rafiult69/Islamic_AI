@@ -434,6 +434,9 @@
             </svg>
             Answers are provided based on Quran and authentic Hadith sources
         </div>
+        <div class="footnote" style="opacity: 0.6; font-size: 0.8rem; margin-top: 0.5rem;">
+            This AI works with information from the internet, so all information may not be entirely accurate
+        </div>
     </div>
 
     <script>
@@ -521,13 +524,15 @@
                     const speech = new SpeechSynthesisUtterance(textToSpeak);
                     speech.lang = 'en-US';
                     
-                    // Try to find a good voice
+                    // Try to find a deep male voice suitable for an Islamic scholar
                     availableVoices = speechSynthesis.getVoices();
                     const preferredVoices = [
                         'Google UK English Male',
                         'Microsoft David - English (United States)',
                         'Microsoft Mark - English (United States)',
-                        'Daniel'
+                        'Daniel',
+                        'Google US English',
+                        'Arabic Male'
                     ];
                     
                     for (const preferredVoice of preferredVoices) {
@@ -538,8 +543,9 @@
                         }
                     }
                     
-                    speech.rate = 1;
-                    speech.pitch = 1;
+                    // Use lower pitch for a deeper voice
+                    speech.rate = 0.9;  // Slightly slower rate for clarity
+                    speech.pitch = 0.8; // Lower pitch for a deeper voice
                     
                     speechSynthesis.speak(speech);
                     currentlySpeaking = speech;
