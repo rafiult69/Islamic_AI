@@ -820,6 +820,10 @@
                 return `<div class="verse-reference">${match}</div>`;
             });
             
+            // Handle bold text formatting (using both ** and __ Markdown styles)
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+            
             // Format bullet points
             formatted = formatted.replace(/^(\s*)-\s+(.+)$/gm, '<span>⦿ $2</span>');
             
