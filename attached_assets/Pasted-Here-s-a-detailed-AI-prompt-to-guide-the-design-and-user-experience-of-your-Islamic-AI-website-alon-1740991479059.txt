@@ -1,0 +1,100 @@
+Here's a detailed AI prompt to guide the design and user experience of your Islamic AI website, along with key visual elements to implement:
+
+**AI Design Prompt for Islamic Theme:**
+
+```
+Create a website design that embodies traditional Islamic aesthetics while maintaining modern usability. The interface should:
+1. Use classic Islamic color scheme: Deep greens (#0d5d36), gold accents (#c5a455), cream backgrounds (#f8f5ee)
+2. Incorporate subtle geometric patterns inspired by Arabesque art
+3. Feature clean typography using Amiri font for Arabic text and Open Sans for English
+4. Include decorative elements from Islamic architecture (muqarnas patterns, arches)
+5. Maintain perfect readability with 1.5x line height and clear contrast
+6. Use visual hierarchy inspired by Quranic page layouts
+7. Add subtle animations for transitions (300ms ease-in-out)
+8. Ensure WCAG 2.1 AA accessibility compliance
+9. Implement responsive design with mobile-first approach
+10. Use authentic Islamic symbols (mosque silhouette, crescent moon, prayer beads)
+```
+
+**Website Visual Requirements:**
+
+1. **Header Section:**
+   - Centered Arabic calligraphy of "Bismillah" in gold
+   - Subtle geometric border pattern
+   - Navigation menu with prayer times display
+
+2. **Chat Interface:**
+   - Message bubbles shaped like rounded Islamic arches
+   - User messages in green with white text
+   - AI responses in off-white with dark text
+   - Small mosque icon avatar for AI responses
+   - Progress indicators using Islamic geometric animations
+
+3. **Typography:**
+   - Arabic text: 18px Amiri (right-aligned)
+   - English text: 16px Open Sans (left-aligned)
+   - Quranic verses displayed in special gold-bordered boxes
+
+4. **Interactive Elements:**
+   - Buttons with micro-interactions on hover
+   - Loading spinner using rotating crescent moon animation
+   - Smooth scroll behavior for chat history
+   - Error states with decorative border patterns
+
+5. **Mobile Experience:**
+   - Collapsible navigation
+   - Optimized touch targets (minimum 48px)
+   - Keyboard-friendly controls
+   - Reduced animations for low-power devices
+
+6. **Performance Features:**
+   - Lazy-loaded images
+   - CSS minification
+   - HTTP/2 protocol
+   - Cache optimization
+   - <2s load time
+
+**UX Flow Requirements:**
+
+```
+The website should guide users through this experience:
+1. Landing: Clear CTA with search/ask box centered
+2. Interaction: Instant typing feedback with 200ms debounce
+3. Responses: Well-structured answers with:
+   - Quranic verses (Arabic + translation)
+   - Hadith references
+   - Scholarly opinions
+   - Practical advice
+4. Navigation: Persistent help button with common questions
+5. Error Handling: Graceful degradation with Islamic-themed error messages
+```
+
+**Sample AI Response Formatting Prompt:**
+
+``` 
+When generating responses:
+1. Start with "Bismillah" in Arabic
+2. Use section headers with gold underline
+3. Format verses as:
+   [Arabic verse]  
+   [Translation]  
+   (Quran [Surah]:[Verse])
+4. List points using Islamic bullet symbols (⦿)
+5. End with "Allah knows best" in Arabic
+6. Maintain 65 characters per line
+7. Use semantic HTML for accessibility
+8. Include quick-action buttons for related questions
+```
+
+**Final Visual Checklist:**
+- ☑ Contrast ratio ≥ 4.5:1 for text
+- ☑ Touch targets ≥ 48px
+- ☑ FOUT prevention with font-display: swap
+- ☑ Dark mode support
+- ☑ RTL language support
+- ☑ Prayer times calculator
+- ☑ Quran quick reference sidebar
+- ☑ Hadith verification badges
+- ☑ Scholar credibility indicators
+
+This combination will create a website that feels authentically Islamic while providing modern web experience standards. The key is balancing decorative elements with clean whitespace and maintaining fast performance through optimized assets.
