@@ -1,10 +1,11 @@
+
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
 // Use existing image as source
 async function generateIcon(size) {
-  const inputPath = path.join(__dirname, 'Leonardo_Phoenix_10_A_stylized_lowresolution_pixel_art_logo_of_0.jpg');
+  const inputPath = path.join(__dirname, 'Apk Logo.jpeg');
   const outputPath = path.join(__dirname, 'public', `icon-${size}x${size}.png`);
 
   // Resize the image to required dimensions
