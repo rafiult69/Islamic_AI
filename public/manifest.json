@@ -1,0 +1,22 @@
+
+{
+  "name": "Islamic Scholar AI",
+  "short_name": "Islamic AI",
+  "description": "AI assistant for Islamic questions based on Quran and Hadith",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f5ee",
+  "theme_color": "#0d5d36",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
